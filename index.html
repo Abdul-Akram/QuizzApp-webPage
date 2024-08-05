@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            height: 100%;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Dancing Script', cursive;
+        }
+        .container {
+            background-color: rgba(216, 231, 244, 0.422);
+            padding: 2rem;
+            border-radius: 20px;
+        }
+        .options {
+            display: flex;
+            justify-content: center;
+        }
+        ul {
+            list-style: none;
+        }
+        .head {
+            padding: 0 0 1rem 0;
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        li {
+            font-size: 1.5rem;
+            padding: 1.3rem 1.3rem 1.3rem 0;
+            background-color: rgba(154, 205, 246, 0.463);
+            margin-top: .5rem;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+        }
+        span {
+            margin-right: 20px;
+            background-color: rgba(216, 7, 7, 0.949);
+            padding: 1.3rem;
+            color: white;
+            border-radius: 10px 0 0 10px;
+            cursor: pointer;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+        .nav-btn {
+            padding: 0.5rem 1rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .nav-btn:hover {
+            background-color: #0056b3;
+        }
+        .nav-btn:disabled {
+            background-color: #c0c0c0;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="question" data-index="0">
+            <div class="head">
+                <h1>In Web Design, CSS stands for?</h1>
+            </div>
+            <div class="options">
+                <ul class="lists">
+                    <li><span id="answer">A</span>Cascading Style Sheet</li>
+                    <li><span id="wrong">B</span>Cross Style Sheet</li>
+                    <li><span id="wrong">C</span>Control Style Sheet</li>
+                    <li><span id="wrong">D</span>Copy Style Sheet</li>
+                </ul>
+            </div>
+        </div>
+        <div class="question" data-index="1" style="display: none;">
+            <div class="head">
+                <h1>What does HTML stand for?</h1>
+            </div>
+            <div class="options">
+                <ul class="lists">
+                    <li><span id="answer">A</span>HyperText Markup Language</li>
+                    <li><span id="wrong">B</span>HyperText Machine Language</li>
+                    <li><span id="wrong">C</span>HyperTool Markup Language</li>
+                    <li><span id="wrong">D</span>HyperTransfer Markup Language</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Add more questions in similar structure here -->
+
+        <div class="navigation">
+            <button id="prev" class="nav-btn" disabled>Previous</button>
+            <button id="next" class="nav-btn">Next</button>
+        </div>
+    </div>
+    <script>
+        let questions = document.querySelectorAll('.question');
+        let currentIndex = 0;
+        let prevBtn = document.getElementById('prev');
+        let nextBtn = document.getElementById('next');
+
+        document.querySelectorAll('.question .options span').forEach(span => {
+            span.addEventListener('click', function() {
+                let options = this.parentElement.parentElement.querySelectorAll('li');
+                options.forEach(li => {
+                    li.querySelector('span').style.backgroundColor = "rgba(216, 7, 7, 0.949)";
+                    li.style.backgroundColor = "rgba(154, 205, 246, 0.463)";
+                });
+
+                if (this.id === 'answer') {
+                    this.style.backgroundColor = 'green';
+                    this.parentElement.style.backgroundColor = 'lightgreen';
+                } else {
+                    this.style.backgroundColor = 'red';
+                    this.parentElement.style.backgroundColor = 'lightcoral';
+                }
+            });
+        });
+
+        prevBtn.addEventListener('click', () => {
+            questions[currentIndex].style.display = 'none';
+            currentIndex--;
+            questions[currentIndex].style.display = 'block';
+            updateButtons();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            questions[currentIndex].style.display = 'none';
+            currentIndex++;
+            questions[currentIndex].style.display = 'block';
+            updateButtons();
+        });
+
+        function updateButtons() {
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === questions.length - 1;
+        }
+    </script>
+</body>
+</html>
